@@ -1,0 +1,17 @@
+import tailwindcss from '@tailwindcss/vite';
+import { sveltekit } from '@sveltejs/kit/vite';
+import { defineConfig } from 'vite';
+
+export default defineConfig({
+	plugins: [tailwindcss(), sveltekit()],
+	server: {
+		host: true,
+		watch: {
+			usePolling: true,
+			interval: 100,
+			binaryInterval: 300,
+			depth: 10,
+			ignored: ['**/node_modules/**', '**/.git/**']
+		}
+	}
+});
