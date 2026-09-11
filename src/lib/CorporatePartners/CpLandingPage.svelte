@@ -8,16 +8,15 @@
   style="background-image: url({bgImage});"
 >
   <!-- white-to-transparent gradient overlay for text readability -->
-  <div class="absolute inset-0 bg-gradient-to-r from-white via-white/85 md:via-white/60 to-transparent"></div>
+  <div class="absolute inset-0 bg-gradient-to-r from-white via-white/90 sm:via-white/85 md:via-white/60 to-transparent"></div>
 
-
-  <div class="relative z-10 min-h-[170px] md:min-h-[390px] flex items-center px-6 py-8 md:px-16 lg:px-20">
+  <div class="relative z-10 flex min-h-[140px] items-center px-4 py-6 xs:min-h-[160px] sm:min-h-[220px] sm:px-8 sm:py-8 md:min-h-[390px] md:px-16 lg:px-2 lg:justify-center lg:pr-250 lg:pb-30">
     <div>
-      <p class="text-xs md:text-sm font-bold tracking-widest text-blue-900 mb-2">
+      <p class="mb-1.5 text-[11px] font-bold tracking-widest text-blue-900 sm:mb-2 sm:text-xs md:text-sm">
         ABOUT US
       </p>
 
-      <h1 class="text-2xl md:text-3xl font-extrabold text-blue-900">
+      <h1 class="text-xl font-extrabold leading-tight text-blue-900 sm:text-2xl md:text-3xl">
         Corporate Partners
       </h1>
     </div>

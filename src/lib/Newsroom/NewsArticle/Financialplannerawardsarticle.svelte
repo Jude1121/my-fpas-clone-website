@@ -1,4 +1,9 @@
 <script>
+	import heroBgDefault from '$lib/assets/media-release/bg-image.svg';
+	import financialPlannerAwards2026Thumb from '$lib/assets/media-release/news/financial-planner-awards-2026.png';
+	import registrationOpenImage from '$lib/assets/media-release/news/financial-planner-awards-2026-registration-open.png';
+	import detailsPosterImage from '$lib/assets/media-release/news/financial-planner-awards-2026-details-poster.png';
+
 	/**
 	 * Media Release article: "FPAS Financial Planner Awards 2026:
 	 * Understanding the Qualifying Criteria"
@@ -14,13 +19,17 @@
 	 *   { type: 'heading', text: '...' }                 bold subheading
 	 *   { type: 'bullets', items: ['...', '...'] }        bullet list
 	 *   { type: 'image', src: '...', alt: '...' }         full-width inline image
+	 *
+	 * NOTE: `image` blocks' `src` must be an imported asset variable
+	 * (see imports above), not a raw '/src/lib/...' string, or the
+	 * image won't resolve once built/deployed under a base path.
 	 */
 	let {
 		eyebrow = 'MEDIA RELEASE',
 		title = 'FPAS Financial Planner Awards 2026: Understanding the Qualifying Criteria',
 		date = '1 July 2026',
-		heroImage = '/src/lib/assets/media-release/bg-image.svg',
-		thumbnail = '/src/lib/assets/media-release/news/financial-planner-awards-2026.png',
+		heroImage = heroBgDefault,
+		thumbnail = financialPlannerAwards2026Thumb,
 		thumbnailAlt = 'Financial Planner Awards Singapore 2026 - Understanding the Qualifying Criteria',
 		body = [
 			{
@@ -37,7 +46,7 @@
 			},
 			{
 				type: 'image',
-				src: '/src/lib/assets/media-release/news/financial-planner-awards-2026-registration-open.png',
+				src: registrationOpenImage,
 				alt: 'Financial Planner Awards Singapore 2026 - Registration Now Open'
 			},
 			{ type: 'heading', text: '1. Professional Excellence Route' },
@@ -100,7 +109,7 @@
 			},
 			{
 				type: 'image',
-				src: '/src/lib/assets/media-release/news/financial-planner-awards-2026-details-poster.png',
+				src: detailsPosterImage,
 				alt: 'Financial Planner Awards Singapore 2026 - full event details'
 			},
 			{ type: 'heading', text: 'Recognising Excellence in All Dimensions' },
@@ -134,34 +143,34 @@
 	<!-- Hero photo banner -->
 	<div class="relative">
 		<div
-			class="h-[280px] w-full bg-cover bg-center md:h-[420px]"
+			class="h-[130px] w-full bg-cover bg-center sm:h-[220px] md:h-[420px]"
 			style="background-image: url({heroImage});"
 		></div>
 
-		<!-- Overlapping white card: title, date, image, and full body copy -->
-		<div class="relative mx-auto max-w-6xl px-6">
+		<!-- Card: flush/full-bleed under the hero on mobile, overlapping rounded card from sm/md up -->
+		<div class="relative mx-auto max-w-6xl px-0 sm:px-6">
 			<div
-				class="relative -mt-40 max-w-4xl rounded-tr-3xl bg-white p-8 shadow-xl md:-mt-64 md:p-10"
+				class="relative mt-0 max-w-none rounded-none bg-white p-6 shadow-none sm:-mt-24 sm:max-w-4xl sm:rounded-tr-3xl sm:p-8 sm:shadow-xl md:-mt-64 md:p-10"
 			>
-				<p class="mb-2 text-sm font-bold tracking-wide text-blue-900">{eyebrow}</p>
+				<p class="mb-2 text-xs font-bold tracking-wide text-blue-900 sm:text-sm">{eyebrow}</p>
 
-				<h1 class="mb-2 text-2xl font-bold leading-snug text-blue-900 md:text-3xl">
+				<h1 class="mb-2 text-xl font-bold leading-snug text-blue-900 sm:text-2xl md:text-3xl">
 					{title}
 				</h1>
 
-				<p class="mb-6 text-sm text-slate-500">{date}</p>
+				<p class="mb-4 text-xs text-slate-500 sm:mb-6 sm:text-sm">{date}</p>
 
-				<div class="mb-8 flex justify-center">
+				<div class="mb-6 flex justify-center sm:mb-8">
 					<img
 						src={thumbnail}
 						alt={thumbnailAlt}
-						class="w-full max-w-sm rounded-md object-contain"
+						class="w-full max-w-[240px] rounded-md object-contain sm:max-w-sm"
 						loading="lazy"
 					/>
 				</div>
 
-				<div class="space-y-5 text-slate-700">
-					{#each body as block}
+				<div class="space-y-4 text-sm text-slate-700 sm:space-y-5 sm:text-base">
+					{#each body as block, i (i)}
 						{#if block.type === 'paragraph'}
 							<p class="leading-relaxed">{block.text}</p>
 						{:else if block.type === 'html'}
@@ -170,7 +179,7 @@
 							<p class="pt-2 font-bold leading-relaxed text-slate-900">{block.text}</p>
 						{:else if block.type === 'bullets'}
 							<ul class="ml-5 list-disc space-y-2">
-								{#each block.items as item}
+								{#each block.items as item, j (j)}
 									<li class="leading-relaxed">{item}</li>
 								{/each}
 							</ul>
@@ -186,7 +195,7 @@
 				</div>
 
 				{#if contact}
-					<div class="mt-8 space-y-1 text-slate-700">
+					<div class="mt-8 space-y-1 text-sm text-slate-700 sm:text-base">
 						<p class="font-bold">{contact.heading}</p>
 						<p class="pt-3">{contact.org}</p>
 						<p>
@@ -199,5 +208,5 @@
 		</div>
 	</div>
 
-	<div class="h-16"></div>
+	<div class="h-10 sm:h-16"></div>
 </article>

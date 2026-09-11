@@ -1,29 +1,15 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
 	import { goto } from '$app/navigation';
+	import { events as allEvents } from '$lib/data/events';
 
 	type CalendarEvent = {
 		title: string;
 		date: Date;
 	};
 
-	// Sample events — kept in sync with EventsCalendarList.svelte. Swap for real data as needed.
-	const events: CalendarEvent[] = [
-		// July 2026
-		{ title: 'Cycle 2 Examination - Module 6 Results Release', date: new Date(2026, 6, 3) },
-		{ title: 'A Legacy of Love: Trust Planning Sharing Session (Mandarin Speaking)', date: new Date(2026, 6, 10) },
-		{ title: 'FPAS x Penguin Securities Knowledge Sharing Session', date: new Date(2026, 6, 22) },
-		// August 2026
-		{ title: 'Cycle 3 Examination - Module 1', date: new Date(2026, 7, 18) },
-		{ title: 'Cycle 3 Examination - Module 2', date: new Date(2026, 7, 21) },
-		{ title: 'Cycle 3 Examination - Module 3', date: new Date(2026, 7, 26) },
-		{ title: 'Cycle 3 Examination - Module 4', date: new Date(2026, 7, 31) },
-		// September 2026
-		{ title: 'Cycle 3 Examination - Module 5', date: new Date(2026, 8, 2) },
-		{ title: 'Cycle 3 Examination - Module 6', date: new Date(2026, 8, 4) },
-		{ title: 'Will & Trust Planning Sharing Session with Mr Anthony Xu', date: new Date(2026, 8, 11) },
-		{ title: 'Cycle 3 Examination - Module 1 to 5 Results Release', date: new Date(2026, 8, 18) }
-	];
+	// Derived from the shared event list — always matches EventsCalendarList.svelte and UpcomingEvents.svelte.
+	const events: CalendarEvent[] = allEvents.map((e) => ({ title: e.title, date: e.date }));
 
 	const weekdayLabels = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 	const hourLabels = Array.from({ length: 24 }, (_, h) => {
@@ -35,8 +21,8 @@
 	type ViewMode = 'month' | 'week' | 'day' | 'list';
 	let view = $state<ViewMode>('month');
 
-	// The reference date currently on screen — anchors the month, week, and day views.
-	let viewDate = $state(new Date(2026, 7, 26));
+	// The reference date currently on screen — defaults to today so the calendar always opens on the real current month.
+	let viewDate = $state(new Date());
 
 	const monthFormatter = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric' });
 	let monthLabel = $derived(monthFormatter.format(viewDate));
@@ -160,33 +146,33 @@
 	}
 </script>
 
-<section class="w-full bg-white px-6 md:px-10 py-8">
+<section class="w-full bg-white px-4 sm:px-6 md:px-10 py-6 sm:py-8">
 	<div class="mx-auto max-w-6xl">
 		<!-- Header: navigation, title, view switcher -->
-		<div class="flex items-center justify-between mb-6 flex-wrap gap-4">
+		<div class="flex flex-col items-center gap-3 sm:gap-4 mb-6 sm:flex-row sm:items-center sm:justify-between sm:flex-wrap">
 			<!-- Previous / Today / Next segmented control -->
 			<div class="flex rounded-md overflow-hidden border border-[#3a3a8f]">
 				<button
 					onclick={goToPrevMonth}
-					class="bg-[#3a3a8f] text-white text-sm font-medium px-4 py-2 hover:bg-[#2f2f75] transition-colors"
+					class="bg-[#3a3a8f] text-white text-sm sm:text-sm font-medium px-3 sm:px-4 py-1.5 sm:py-2 hover:bg-[#2f2f75] transition-colors"
 				>
 					Previous
 				</button>
 				<button
 					onclick={goToToday}
-					class="bg-white text-[#1a1a1a] text-sm font-medium px-4 py-2 border-x border-[#3a3a8f] hover:bg-gray-50 transition-colors"
+					class="bg-white text-[#1a1a1a] text-sm sm:text-sm font-medium px-3 sm:px-4 py-1.5 sm:py-2 border-x border-[#3a3a8f] hover:bg-gray-50 transition-colors"
 				>
 					Today
 				</button>
 				<button
 					onclick={goToNextMonth}
-					class="bg-[#3a3a8f] text-white text-sm font-medium px-4 py-2 hover:bg-[#2f2f75] transition-colors"
+					class="bg-[#3a3a8f] text-white text-sm sm:text-sm font-medium px-3 sm:px-4 py-1.5 sm:py-2 hover:bg-[#2f2f75] transition-colors"
 				>
 					Next
 				</button>
 			</div>
 
-			<h1 class="text-2xl md:text-3xl font-bold text-[#1a1a1a] text-center">
+			<h1 class="text-2xl sm:text-2xl md:text-3xl font-bold text-[#1a1a1a] text-center">
 				{#if view === 'week'}
 					{weekRangeLabel}
 				{:else if view === 'day'}
@@ -201,7 +187,7 @@
 				{#each ['month', 'week', 'day', 'list'] as mode (mode)}
 					<button
 						onclick={() => selectView(mode as ViewMode)}
-						class="text-sm font-medium px-4 py-2 capitalize transition-colors
+						class="text-sm sm:text-sm font-medium px-3 sm:px-4 py-1.5 sm:py-2 capitalize transition-colors
 							{view === mode ? 'bg-[#3a3a8f] text-white' : 'bg-white text-[#1a1a1a] hover:bg-gray-50'}
 							{mode !== 'month' ? 'border-l border-[#3a3a8f]' : ''}"
 					>
@@ -215,7 +201,7 @@
 			<!-- Weekday header row -->
 			<div class="grid grid-cols-7 border-t border-l border-gray-200">
 				{#each weekdayLabels as label (label)}
-					<div class="border-r border-b border-gray-200 py-2 text-center text-sm font-bold text-[#1a1a1a]">
+					<div class="border-r border-b border-gray-200 py-2 px-0.5 text-center text-lg sm:text-sm font-bold text-[#1a1a1a] truncate">
 						{label}
 					</div>
 				{/each}
@@ -225,20 +211,20 @@
 			<div class="grid grid-cols-7 border-l border-gray-200">
 				{#each calendarDays as day (day.date.toISOString())}
 					<div
-						class="relative border-r border-b border-gray-200 min-h-[110px] p-2 {day.isToday
+						class="relative border-r border-b border-gray-200 min-h-[70px] sm:min-h-[110px] p-1 sm:p-2 {day.isToday
 							? 'bg-green-50'
 							: ''}"
 					>
 						{#if day.events.length > 0}
 							<span
-								class="absolute top-2 left-2 w-5 h-5 rounded-full bg-[#8a1c2e] text-white text-[11px] font-bold flex items-center justify-center"
+								class="absolute top-1 left-1 sm:top-2 sm:left-2 w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#8a1c2e] text-white text-[9px] sm:text-sm font-bold flex items-center justify-center"
 							>
 								{day.events.length}
 							</span>
 						{/if}
 
 						<p
-							class="text-right text-lg pr-1 {!day.isCurrentMonth
+							class="text-right text-lg sm:text-lg pr-0.5 sm:pr-1 {!day.isCurrentMonth
 								? 'text-gray-300'
 								: day.isWeekend
 									? 'text-red-400'
@@ -247,10 +233,10 @@
 							{day.dayNumber}
 						</p>
 
-						<div class="flex flex-col gap-1 mt-1">
+						<div class="flex flex-col gap-0.5 sm:gap-1 mt-0.5 sm:mt-1">
 							{#each day.events as event (event.title)}
 								<span
-									class="block text-xs text-[#0b2f6b] border border-[#0b2f6b]/30 rounded px-1.5 py-0.5 truncate"
+									class="block text-xs sm:text-xs text-[#0b2f6b] border border-[#0b2f6b]/30 rounded px-1 sm:px-1.5 py-0.5 truncate"
 									title={event.title}
 								>
 									{event.title}
@@ -282,7 +268,7 @@
 									{day.label}
 								</p>
 								<p
-									class="text-xs {day.isToday
+									class="text-lg {day.isToday
 										? 'text-green-700'
 										: day.isWeekend
 											? 'text-red-400'

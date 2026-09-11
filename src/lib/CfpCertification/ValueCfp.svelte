@@ -91,7 +91,7 @@
           <!-- CTA -->
           <a
             href={resolve(card.href)}
-            class="inline-block bg-blue-900 text-white text-xs font-bold tracking-wide px-6 py-3 hover:bg-blue-800 transition-colors"
+            class="inline-block bg-blue-900 text-white text-xs font-bold tracking-wide px-6 py-3  hover:bg-white hover:text-blue-800 shadow-md transition-colors rounded-bl-lg  rounded-tr-lg "
           >
             LEARN MORE
           </a>

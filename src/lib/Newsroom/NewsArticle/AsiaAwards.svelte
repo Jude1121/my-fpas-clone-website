@@ -1,4 +1,7 @@
 <script>
+	import heroBgDefault from '$lib/assets/media-release/bg-image.svg';
+	import asiaTrustedAwardsThumb from '$lib/assets/media-release/news/asia-trusted-awards-2026.png';
+
 	/**
 	 * Media Release article page.
 	 * - `heroImage`: the wide photo banner at the top (assets/media-release/hero-bg.png)
@@ -9,8 +12,8 @@
 		eyebrow = 'MEDIA RELEASE',
 		title = 'FPAS President Dr Ben Fok Appointed Judge for the 11th Asia Trusted Life Agents & Advisers Awards 2026',
 		date = '7 July 2026',
-		heroImage = '/src/lib/assets/media-release/bg-image.svg',
-		thumbnail = '/src/lib/assets/media-release/news/asia-trusted-awards-2026.png',
+		heroImage = heroBgDefault,
+		thumbnail = asiaTrustedAwardsThumb,
 		thumbnailAlt = '11th Asia Trusted Life Agents & Advisers Awards 2026 judges',
 		paragraphs = [
 			"The Financial Planning Association of Singapore (FPAS) is pleased to announce that its President, Dr Ben Fok, has been appointed to the panel of judges for the 11th Asia Trusted Life Agents & Advisers Awards 2026.",
@@ -25,33 +28,33 @@
 	<!-- Hero photo banner -->
 	<div class="relative">
 		<div
-			class="h-[280px] w-full bg-cover bg-center md:h-[420px]"
+			class="h-[130px] w-full bg-cover bg-center sm:h-[220px] md:h-[420px]"
 			style="background-image: url({heroImage});"
 		></div>
 
-		<!-- Overlapping white card: holds everything — title, date, image, and body copy -->
-		<div class="relative mx-auto max-w-6xl px-6">
+		<!-- Card: flush/full-bleed under the hero on mobile, overlapping rounded card from sm/md up -->
+		<div class="relative mx-auto max-w-6xl px-0 sm:px-6">
 			<div
-				class="relative -mt-40 max-w-4xl rounded-tr-3xl rounded-bl-3xl bg-white p-8 shadow-xl md:-mt-64 md:p-10 -ml-10"
+				class="relative mt-0 max-w-none rounded-none bg-white p-6 shadow-none sm:-mt-24 sm:max-w-4xl sm:rounded-tr-3xl sm:rounded-bl-3xl sm:p-8 sm:shadow-xl md:-mt-64 md:p-10 md:-ml-10"
 			>
-				<p class="mb-2 text-sm font-bold tracking-wide text-blue-900">{eyebrow}</p>
+				<p class="mb-2 text-xs font-bold tracking-wide text-blue-900 sm:text-sm">{eyebrow}</p>
 
-				<h1 class="mb-2 text-2xl font-bold leading-snug text-blue-900 md:text-3xl">
+				<h1 class="mb-2 text-xl font-bold leading-snug text-blue-900 sm:text-2xl md:text-3xl">
 					{title}
 				</h1>
 
-				<p class="mb-6 text-sm text-slate-500">{date}</p>
+				<p class="mb-4 text-xs text-slate-500 sm:mb-6 sm:text-sm">{date}</p>
 
-				<div class="mb-8 flex justify-center">
+				<div class="mb-6 flex justify-center sm:mb-8">
 					<img
 						src={thumbnail}
 						alt={thumbnailAlt}
-						class="w-full max-w-xs rounded-md object-contain md:max-w-sm"
+						class="w-full max-w-[240px] rounded-md object-contain sm:max-w-xs md:max-w-sm"
 						loading="lazy"
 					/>
 				</div>
 
-				<div class="space-y-5 text-slate-700">
+				<div class="space-y-4 text-sm text-slate-700 sm:space-y-5 sm:text-base">
 					{#each paragraphs as paragraph}
 						<p class="leading-relaxed">{paragraph}</p>
 					{/each}
@@ -61,5 +64,5 @@
 	</div>
 
 	<!-- spacer so the page doesn't end abruptly right under the card -->
-	<div class="h-16"></div>
+	<div class="h-10 sm:h-16"></div>
 </article>

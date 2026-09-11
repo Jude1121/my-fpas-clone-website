@@ -88,7 +88,7 @@
           href="https://fpas.org.sg/assets/public2_LifesBetterwithCFP_infographic_2016_Members_Digital_FINAL.png"
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-block w-fit bg-blue-900 text-white text-xs md:text-sm font-bold tracking-wide px-6 py-4 hover:bg-blue-800 transition-colors rounded-bl-xl rounded-tr-xl"
+          class="inline-block w-fit bg-blue-900 text-white text-xs md:text-sm font-bold tracking-wide px-6 py-4 hover:bg-white hover:text-blue-800 shadow-lg transition-colors rounded-bl-xl rounded-tr-xl"
         >
           VIEW THE INFOGRAPHIC
         </a>

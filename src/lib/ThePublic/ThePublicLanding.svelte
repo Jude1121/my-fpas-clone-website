@@ -51,7 +51,7 @@
 
       <a 
         href={resolve('/consumers/infographic')}
-        class="inline-block bg-blue-900 text-white text-xs md:text-sm font-bold tracking-wide px-6 py-4 hover:bg-blue-800 transition-colors"
+        class="bg-blue-900 text-white text-sm md:text-sm font-bold px-6 py-3 rounded-bl-xl rounded-tr-xl hover:bg-white hover:text-blue-800 transition-colors shadow-lg"
       >
         VIEW THE INFOGRAPHIC
       </a>

@@ -1,101 +1,27 @@
 <script>
+	import { resolve } from '$app/paths';
+	import { news as allNews } from '$lib/data/news';
+
 	/**
 	 * Latest News list.
-	 * Each item's `image` should point to an SVG/image in your
-	 * assets/media-release/news folder, or be left `null` to show
-	 * the "No image available" placeholder.
+	 * Defaults to the shared `news` data source — override `items` via prop
+	 * only if you need a custom/filtered subset.
 	 */
 	let {
 		heading = 'LATEST NEWS',
-		items = [
-			{
-				id: 1,
-				image: '/src/lib/assets/media-release/news/asia-trusted-awards-2026.png',
-				title: 'FPAS President Dr Ben Fok Appointed Judge for the 11th Asia Trusted Life Agents & Advisers Awards 2026',
-				excerpt:
-					"FPAS is proud to announce that President Dr Ben Fok has been appointed as a judge for the 11th Asia Trusted Life Agents & Advisers Awards 2026, reflecting the Association's continued commitment to promoting excellence and professionalism in financial planning across the region.",
-				href: '/newsroom/media-release/asia-trusted-awards'
-			},
-			{
-				id: 2,
-				image: '/src/lib/assets/media-release/news/financial-planner-awards-2026.png',
-				title: 'FPAS Financial Planner Awards 2026: Understanding the Qualifying Criteria',
-				excerpt:
-					'As the FPAS Annual Financial Planner Awards return in 2026, FPAS has introduced greater clarity on the qualifying criteria to help eligible CFP® professionals better understand the two award pathways. Applications are now open, with an Early Bird discount available for submissions received by 17 July 2026.',
-				href: '/newsroom/media-release/financial-planner-award'
-			},
-			{
-				id: 3,
-				image: '/src/lib/assets/media-release/news/financial-planner-awards-save-the-date.png',
-				title: 'Financial Planner Awards 2026 Singapore',
-				excerpt:
-					'The Financial Planning Association of Singapore (FPAS) is pleased to announce the return of the Financial Planner Awards Singapore in 2026. The prestigious awards program recognises CFP professionals who have demonstrated excellence, professionalism, and leadership in advancing the financial planning profession in Singapore.',
-				href: '#'
-			},
-			{
-				id: 4,
-				image: '/src/lib/assets/media-release/news/no-image.jpg',
-				title: 'FPAS Invites Public Participation in Global AI and Financial Planning Survey',
-				excerpt:
-					'FPAS and the Financial Planning Standards Board Ltd. (FPSB) invite financial professionals and members of the public to participate in the 2026 Global AI and Financial Planning Survey. Share your views on how artificial intelligence is shaping the future of financial planning and contribute to important global industry research.',
-				href: '#'
-			},
-			{
-				id: 5,
-				image: '/src/lib/assets/media-release/news/legacy-planning-series.png',
-				title: 'FPAS and SimplyWills Successfully Conclude First Session of 2026 Legacy Planning Series',
-				excerpt:
-					'FPAS, in collaboration with SimplyWills, successfully concluded the first session of the 2026 Legacy Planning Series with a Mandarin Wills Talk held on 15 May 2026. The session provided participants with practical insights into Wills, intestacy laws, and the importance of early legacy planning.',
-				href: '#'
-			},
-			{
-				id: 6,
-				image: '/src/lib/assets/media-release/news/no-image.jpg',
-				title: 'FPAS and Fortis Wills Highlight Growing Importance of Legacy & Digital Asset Planning',
-				excerpt:
-					'The Financial Planning Association of Singapore (FPAS), in collaboration with Fortis Wills, successfully concluded "Legacy, Estate Planning and You," a seminar exploring legacy planning, estate distribution, and the growing relevance of digital assets in today\'s financial landscape.',
-				href: '#'
-			},
-			{
-				id: 7,
-				image: '/src/lib/assets/media-release/news/bestofme-mou-signing.png',
-				emoji: '📣',
-				title: 'FPAS x BestOfMe MOU Signing',
-				excerpt:
-					'FPAS partners with BestOfMe to strengthen leadership development and elevate professional growth for FPAS members.',
-				href: '#'
-			},
-			{
-				id: 8,
-				image: '/src/lib/assets/media-release/news/exam-fee-notice.png',
-				title: 'Notice on Revision of CFP® Modules Examination Fees (Effective from Cycle 3, 2026)',
-				excerpt:
-					'The Financial Planning Association of Singapore (FPAS) will implement revised examination fees for CFP® Modules, effective 1 July 2026 (Cycle 3, 2026).',
-				href: '#'
-			},
-			{
-				id: 9,
-				image: '/src/lib/assets/media-release/news/fpas-isca-mou-signing.png',
-				emoji: '📣',
-				title: 'FPAS x ISCA MOU Signing',
-				excerpt:
-					'On 29 January, FPAS and ISCA Academy signed an MOU, formalised by FPAS CEO Galen Woo and ISCA CEO Mr Quek Mu Lim, to expand professional development opportunities for our members.',
-				href: '#'
-			},
-			{
-				id: 10,
-				image: '/src/lib/assets/media-release/news/annoucement.png',
-				border: 'red',
-				title: 'ANNOUNCEMENT Regarding Cancellation of Cycle 1 Examinations',
-				excerpt:
-					'Important update on the cancellation of the CFP® Examination – Cycle 1 (Feb-Mar 2026). Further details will be communicated in due course.',
-				href: '#'
-			}
-		],
+		items = allNews,
 		currentPage = 1,
 		totalPages = 1,
 		onPageChange = (page) => {}
 	} = $props();
+
+	// News hrefs can be: an internal route ('/newsroom/...'), an external
+	// URL ('https://...'), or a placeholder ('#') for articles not yet linked.
+	// Only real internal routes should go through resolve().
+	function newsHref(href) {
+		if (href === '#' || href.startsWith('http')) return href;
+		return resolve(href);
+	}
 </script>
 
 <section class="mx-auto max-w-6xl px-6 py-10">
@@ -142,7 +68,7 @@
 				<!-- Text content -->
 				<div class="order-2 flex flex-col">
 					<h3 class="mb-3 text-xl font-bold leading-snug">
-						<a href={item.href} class="text-blue-900 hover:underline">
+						<a href={newsHref(item.href)} class="text-blue-900 hover:underline">
 							{#if item.emoji}<span class="mr-1">{item.emoji}</span>{/if}{item.title}
 						</a>
 					</h3>
@@ -151,10 +77,10 @@
 						{item.excerpt}<span class="text-slate-400">&hellip;</span>
 					</p>
 
-					<div class="mt-auto flex lg:justify-end justify-center">
-						<a
-							href={item.href}
-							class="rounded-md border border-blue-800 px-6 py-2.5 text-sm font-medium text-blue-800 transition-colors hover:bg-blue-800 hover:text-white"
+					<div class="mt-auto flex lg:justify-end justify-end">
+						<a 
+							href={newsHref(item.href)}
+							class=" border border-blue-800 px-6 py-2.5 text-sm font-medium text-blue-800 transition-colors hover:bg-blue-800 hover:text-white rounded-bl-xl rounded-tr-xl"
 						>
 							Read More
 						</a>

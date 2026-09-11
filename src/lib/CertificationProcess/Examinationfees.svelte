@@ -40,9 +40,9 @@
 			Current Examination Fees
 		</h2>
 
-		<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 mb-12">
+		<div class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-6 gap-4 mb-12">
 			{#each currentFees as fee (fee.module)}
-				<div class="bg-[#e9e9e9] rounded-2xl px-4 py-6 flex flex-col items-center text-center">
+				<div class="bg-[#e9e9e9] rounded-3xl px-4 py-6 flex flex-col items-center text-center ">
 					<span class="text-sm text-[#1a1a1a] mb-2">{fee.module}</span>
 					<span class="text-lg font-bold text-[#0b2f6b]">{fee.price}</span>
 				</div>
@@ -54,7 +54,7 @@
 			Examination Fees from 1st July 2026
 		</h2>
 
-		<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 mb-3">
+		<div class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-6 gap-4 mb-3">
 			{#each newFees as fee (fee.module)}
 				<div class="bg-[#0b2f6b] rounded-2xl px-4 py-6 flex flex-col items-center text-center">
 					<span class="text-sm text-white/90 mb-2">{fee.module}</span>

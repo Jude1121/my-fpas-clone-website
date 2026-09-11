@@ -30,8 +30,8 @@
         the tenth member of FPSB internationally.
       </p>
 
-      <button class="bg-blue-900 text-white text-sm md:text-base font-medium px-6 py-3 rounded-bl-xl rounded-tr-xl hover:bg-blue-800 transition-colors">
-        Meet the Team
+      <button class="bg-blue-900 text-white text-sm md:text-sm font-bold px-6 py-3 rounded-bl-xl rounded-tr-xl hover:bg-white hover:text-blue-800 transition-colors shadow-lg">
+        MEET THE TEAM
       </button>
     </div>
 

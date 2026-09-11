@@ -3,7 +3,7 @@
 	import HeroBg from '$lib/assets/cp/certification-process-hero.svg';
 </script>
 
-<section class="relative w-full overflow-hidden" style="height: 230px;">
+<section class="relative w-full overflow-hidden h-32 sm:h-44 md:h-[230px]">
 	<!-- Background image -->
 	<img
 		src={HeroBg}
@@ -19,7 +19,7 @@
 	></div>
 
 	<!-- Content -->
-	<div class="relative h-full flex items-center px-6 md:px-16 justify-center mr-180">
-		<h1 class="text-2xl md:text-3xl font-extrabold text-[#0b2f6b]">IBF Accreditation</h1>
+	<div class="relative h-full flex items-center justify-start px-4 sm:px-6 md:px-16 md:justify-center md:mr-180">
+		<h1 class="text-lg sm:text-2xl md:text-3xl font-extrabold text-[#0b2f6b]">IBF Accreditation</h1>
 	</div>
 </section>

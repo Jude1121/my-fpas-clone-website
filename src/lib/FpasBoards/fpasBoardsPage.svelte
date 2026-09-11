@@ -73,7 +73,7 @@ They will also review and make changes to the examination questions, including r
       >
         <!-- Text -->
         <div class="md:w-1/2 md:shrink-0">
-          <h3 class="text-md font-bold text-blue-900 mb-3">{board.title}</h3>
+          <h3 class="text-3xl lg:text-2xl font-bold text-blue-900 mb-3">{board.title}</h3>
           {#if board.isHtml}
             <p class="text-md text-slate-600 leading-relaxed">
               {@html board.description}

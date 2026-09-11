@@ -3,7 +3,7 @@
 	import HeroBg from '$lib/assets/cp/certification-process-hero.svg';
 </script>
 
-<section class="relative w-full overflow-hidden" style="height: 280px;">
+<section class="relative w-full overflow-hidden h-[220px] sm:h-[260px] md:h-[280px] lg:h-[320px]">
 	<!-- Background image -->
 	<img
 		src={HeroBg}
@@ -19,12 +19,12 @@
 	></div>
 
 	<!-- Content -->
-	<div class="relative h-full flex items-center px-6 md:px-16 justify-center mr-160">
-		<div class="max-w-lg">
-			<h1 class="text-2xl md:text-3xl font-extrabold text-blue-900 mb-4 ">
+	<div class="relative h-full flex items-center px-4 sm:px-6 md:px-16 justify-center md:justify-center lg:pr-140" >
+		<div class="max-w-xs sm:max-w-sm md:max-w-lg ">
+			<h1 class="text-lg sm:text-2xl md:text-3xl font-extrabold text-blue-900 mb-2 md:mb-4 ">
 				CFP Certification Renewal 
 			</h1>
-            <h1 class="text-2xl md:text-3xl font-extrabold text-blue-900 mb-4 ">
+            <h1 class="text-lg sm:text-2xl md:text-3xl font-extrabold text-blue-900 mb-2 md:mb-4 ">
 				Policy and Guidelines on CPD Requirements
 			</h1>
 

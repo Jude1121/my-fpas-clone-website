@@ -1,6 +1,9 @@
+<!-- src/lib/components/Navbar.svelte -->
 <script lang="ts">
+
   import fpasLogo from '../assets/fpas-logo.png';
-  import { resolve } from '$app/paths';
+  import { resolve, base } from '$app/paths';
+  import { goto } from '$app/navigation';
   let isOpen = $state(false);
   const menu = [
     'About Us',
@@ -34,7 +37,9 @@
     { label: 'CFP Certification Renewal', href: '/cfp/renewal' },
     { label: 'CFP Cross-Border Practice', href: '/cfp/cross-border-practice' },
     { label: 'IBF Accreditation', href: '/cfp/ibf-accreditation' },
-    { label: 'Frequently Asked Questions', href: '/documents/faq.pdf', external: true },
+    // NOTE: this is a static asset, not a route — mark it as `asset`, not `external`,
+    // so we prefix it with `base` instead of leaving it a bare root-relative path.
+    { label: 'Frequently Asked Questions', href: '/documents/faq.pdf', asset: true },
   ];
   const consumersLinks = [
     { label: 'Consumers', href: '/consumers' },
@@ -45,7 +50,7 @@
     { label: 'Media Release', href: '/newsroom/media-release' },
     { label: 'Publications', href: '/newsroom/publication' },
   ];
-  const dropdownMap: Record<string, { label: string; href: string; external?: boolean }[]> = {
+  const dropdownMap: Record<string, { label: string; href: string; external?: boolean; asset?: boolean }[]> = {
     'About Us': aboutLinks,
     'CFP® Certification': cfpLinks,
     'Consumers': consumersLinks,
@@ -77,6 +82,17 @@
   function toggleMobile(item: string) {
     mobileOpenMap[item] = !mobileOpenMap[item];
   }
+  function handleLoginClick() {
+    goto(resolve('/login'));
+  }
+
+  // Helper: routes go through resolve(), external links pass through as-is,
+  // static assets (pdf/img/etc under /static) need the base path prefixed manually.
+  function linkHref(link: { href: string; external?: boolean; asset?: boolean }) {
+    if (link.external) return link.href;
+    if (link.asset) return `${base}${link.href}`;
+    return resolve(link.href as any);
+  }
 </script>
 <nav class="w-full shadow-sm ">
   <div class="bg-[#002f86] flex items-center lg:px-20 px-3 py-3">
@@ -86,7 +102,10 @@
       </a>
     </div>
     <div class="ml-auto">
-      <button class="text-white text-[16px] md:text-[18px] rounded pl-4 pr-4 pb-2 pt-2 hover:bg-white hover:text-[#002f86] font-medium">
+      <button
+        onclick={handleLoginClick}
+        class="text-white text-[16px] md:text-[18px] rounded pl-4 pr-4 pb-2 pt-2 hover:bg-white hover:text-[#002f86] font-medium"
+      >
         Login
       </button>
     </div>
@@ -132,7 +151,7 @@
                     {#each dropdownMap[item] as link (link.label)}
                       <li class="border-b border-gray-100 last:border-none">
                         <a 
-                          href={link.external ? link.href : resolve(link.href as any)}
+                          href={linkHref(link)}
                           target={link.external ? '_blank' : undefined}
                           rel={link.external ? 'noopener noreferrer' : undefined}
                           class="block w-full text-left px-8 py-[12px] text-[17px] text-[#444] hover:text-[#002f86] hover:bg-blue-50 transition-colors"
@@ -146,8 +165,8 @@
               </li>
             {:else if simpleLinkMap[item]}
               <li class="border-b border-gray-100 last:border-none">
-                <a
-                  href={simpleLinkMap[item].external ? simpleLinkMap[item].href : resolve(simpleLinkMap[item].href as any)}
+                <a 
+                  href={linkHref(simpleLinkMap[item])}
                   target={simpleLinkMap[item].external ? '_blank' : undefined}
                   rel={simpleLinkMap[item].external ? 'noopener noreferrer' : undefined}
                   class="block px-5 py-[14px] text-[18px] text-[#1d1d1d] hover:text-[#002f86] hover:bg-gray-50 transition-colors"
@@ -187,10 +206,10 @@
                   class="absolute top-full left-0 mt-0 w-fit bg-white border border-gray-200 shadow-xl z-50"
                 >
                   {#each dropdownMap[item] as link (link.label)}
+                    
                     <a 
-      
                       role="menuitem"
-                      href={link.external ? link.href : resolve(link.href as any)}
+                      href={linkHref(link)}
                       target={link.external ? '_blank' : undefined}
                       rel={link.external ? 'noopener noreferrer' : undefined}
                       class="w-full text-left px-5 py-[14px] text-[17px] text-[#1d1d1d] border-b border-gray-100 last:border-none hover:bg-gray-100 hover:text-[#002f86] transition-colors block"
@@ -201,8 +220,8 @@
                 </div>
               {/if}
             {:else if simpleLinkMap[item]}
-              <a
-                href={simpleLinkMap[item].external ? simpleLinkMap[item].href : resolve(simpleLinkMap[item].href as any)}
+              <a 
+                href={linkHref(simpleLinkMap[item])}
                 target={simpleLinkMap[item].external ? '_blank' : undefined}
                 rel={simpleLinkMap[item].external ? 'noopener noreferrer' : undefined}
                 class="cursor-pointer hover:text-[#002f86] transition-colors"

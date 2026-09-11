@@ -11,7 +11,7 @@
   <div class="absolute inset-0 bg-gradient-to-r from-white via-white/85 md:via-white/60 to-transparent"></div>
 
 
-  <div class="relative z-10 min-h-[170px] md:min-h-[390px] flex items-center px-6 py-8 md:px-16 lg:px-20">
+  <div class="relative z-10 min-h-[170px] md:min-h-[390px] flex items-center justify-center lg:mr-200  px-6 py-8 md:px-16 lg:px-20">
     <div>
       <p class="text-xs md:text-sm font-bold tracking-widest text-blue-900 mb-2">
         ABOUT US

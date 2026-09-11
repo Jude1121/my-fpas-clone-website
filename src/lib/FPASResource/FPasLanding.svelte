@@ -1,14 +1,15 @@
 <script>
+	import heroBg from '$lib/assets/resources/hero-bg.png';
+
 	/**
 	 * "FPAS Resources" hero banner.
 	 * Light gray background photo (hand holding a yellow lightbulb) on the right,
 	 * bold two-line title on the left.
-	 * Point `bgImage` at your photo in assets (e.g. assets/resources/hero-bg.png).
 	 */
 	let {
 		titleLine1 = 'FPAS',
 		titleLine2 = 'Resources',
-		bgImage = '/src/lib/assets/resources/hero-bg.png'
+		bgImage = heroBg
 	} = $props();
 </script>
 

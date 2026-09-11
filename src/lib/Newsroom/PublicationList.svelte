@@ -1,9 +1,24 @@
 <script>
+	import { resolve } from '$app/paths';
+
+	// Import every image used below. Vite bundles these and rewrites the
+	// URLs correctly (including the /app base path) at build time.
+	import financialAwarenessDay2026 from '$lib/assets/media-release/publication/financial-awareness-day-2026.png';
+	import noImage from '$lib/assets/media-release/news/no-image.jpg';
+	import celebratingFinancialPlannersWorldwide from '$lib/assets/media-release/publication/celebrating-financial-planners-worldwide.png';
+	import financialPlanningMagazineMay2024 from '$lib/assets/media-release/publication/financial-planning-magazine-may-2024.png';
+	import financialPlanningMagazineDec2023 from '$lib/assets/media-release/publication/financial-planning-magazine-dec-2023.png';
+	import knowledgeAloneIsNotPower from '$lib/assets/media-release/publication/knowledge-alone-is-not-power.png';
+	import foundationalPillarsOfPersonalFinance from '$lib/assets/media-release/publication/foundational-pillars-of-personal-finance.jpg';
+	import goalBasedInvestingApproach from '$lib/assets/media-release/publication/goal-based-investing-approach.jpg';
+	import fathersDayGift from '$lib/assets/media-release/publication/fathers-day-gift.jpg';
+	import bookReviewChangingWorldOrder from '$lib/assets/media-release/publication/book-review-changing-world-order.jpg';
+
 	/**
 	 * Latest Publications list.
 	 * Same layout/behaviour as NewsList — image thumbnail on the left,
 	 * title + excerpt + Read More on the right.
-	 * Point `image` at files in assets/media-release/publication,
+	 * Point `image` at imported files in assets/media-release/publication,
 	 * or leave it `null` to show the "No image available" placeholder.
 	 */
 	let {
@@ -11,7 +26,7 @@
 		items = [
 			{
 				id: 1,
-				image: '/src/lib/assets/media-release/publication/financial-awareness-day-2026.png',
+				image: financialAwarenessDay2026,
 				title: 'Financial Awareness Day 2026',
 				excerpt:
 					'Financial Awareness Day is a reminder to understand our financial choices, prepare for the future, and make informed decisions for ourselves and our families. At FPAS, we believe financial planning empowers individuals to build greater financial resilience and take ownership of their financial future. sg',
@@ -19,7 +34,7 @@
 			},
 			{
 				id: 2,
-				image: '/src/lib/assets/media-release/news/no-image.jpg',
+				image: noImage,
 				title: 'A 2-part special talk conducted by Fortis Wills Pte Ltd and FPAS',
 				excerpt:
 					'About 20 participants came together for a dynamic afternoon of learning, diving into estate planning essentials and real-world risk scenarios — gaining actionable insights to serve clients with greater confidence and professionalism.',
@@ -27,56 +42,56 @@
 			},
 			{
 				id: 3,
-				image: '/src/lib/assets/media-release/publication/celebrating-financial-planners-worldwide.png',
+				image: celebratingFinancialPlannersWorldwide,
 				title: 'Celebrating Financial Planners Worldwide at the FPAS World Financial Planning Day 2025',
 				excerpt: 'Written by FPAS Member Ling Hue Chye CFP®',
 				href: '#'
 			},
 			{
 				id: 4,
-				image: '/src/lib/assets/media-release/publication/financial-planning-magazine-may-2024.png',
+				image: financialPlanningMagazineMay2024,
 				title: 'Financial Planning Magazine - May 2024',
 				excerpt: 'Financial Planning Magazine - May 2024',
 				href: '#'
 			},
 			{
 				id: 5,
-				image: '/src/lib/assets/media-release/publication/financial-planning-magazine-dec-2023.png',
+				image: financialPlanningMagazineDec2023,
 				title: 'Financial Planning Magazine - December 2023',
 				excerpt: 'Financial Planning Magazine - December 2023',
 				href: '#'
 			},
 			{
 				id: 6,
-				image: '/src/lib/assets/media-release/publication/knowledge-alone-is-not-power.png',
+				image: knowledgeAloneIsNotPower,
 				title: 'Financial Planning: Knowledge alone is NOT power',
 				excerpt: 'by Benjamin Ang, Founding Editor, Money Playschool',
 				href: '#'
 			},
 			{
 				id: 7,
-				image: '/src/lib/assets/media-release/publication/foundational-pillars-of-personal-finance.jpg',
+				image: foundationalPillarsOfPersonalFinance,
 				title: 'Foundational Pillars of Personal Finance',
 				excerpt: 'by Eliss Chen, CFP®',
 				href: '#'
 			},
 			{
 				id: 8,
-				image: '/src/lib/assets/media-release/publication/goal-based-investing-approach.jpg',
+				image: goalBasedInvestingApproach,
 				title: 'Goal-based investing approach: is it a post-pandemic new norm?',
 				excerpt: 'by Ron Miura, CFP®',
 				href: '#'
 			},
 			{
 				id: 9,
-				image: '/src/lib/assets/media-release/publication/fathers-day-gift.jpg',
+				image: fathersDayGift,
 				title: "Father's Day Gift",
 				excerpt: 'by Joanna Leng, CFP®',
 				href: '#'
 			},
 			{
 				id: 10,
-				image: '/src/lib/assets/media-release/publication/book-review-changing-world-order.jpg',
+				image: bookReviewChangingWorldOrder,
 				title: 'Book Review - Principles for Dealing with the Changing World Order',
 				excerpt: 'by John Sim, CFP®',
 				href: '#'
@@ -86,6 +101,14 @@
 		totalPages = 1,
 		onPageChange = (page) => {}
 	} = $props();
+
+	// Publication hrefs can be: an internal route ('/newsroom/...'), an
+	// external URL ('https://...'), or a placeholder ('#') for
+	// publications not yet linked. Only real internal routes go through resolve().
+	function pubHref(href) {
+		if (href === '#' || href.startsWith('http')) return href;
+		return resolve(href);
+	}
 </script>
 
 <section class="mx-auto max-w-6xl px-6 py-10">
@@ -132,7 +155,7 @@
 				<!-- Text content -->
 				<div class="order-2 flex flex-col">
 					<h3 class="mb-3 text-xl font-bold leading-snug">
-						<a href={item.href} class="text-blue-900 hover:underline">
+						<a href={pubHref(item.href)} class="text-blue-900 hover:underline">
 							{#if item.emoji}<span class="mr-1">{item.emoji}</span>{/if}{item.title}
 						</a>
 					</h3>
@@ -142,9 +165,9 @@
 					</p>
 
 					<div class="mt-auto flex lg:justify-end justify-center">
-						<a
-							href={item.href}
-							class="rounded-md border border-blue-800 px-6 py-2.5 text-sm font-medium text-blue-800 transition-colors hover:bg-blue-800 hover:text-white "
+						<a 
+							href={pubHref(item.href)}
+							class=" border border-blue-800 px-6 py-2.5 text-sm font-medium text-blue-800 transition-colors hover:bg-blue-800 hover:text-white rounded-bl-xl rounded-tr-xl "
 						>
 							Read More
 						</a>

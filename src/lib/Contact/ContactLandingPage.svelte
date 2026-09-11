@@ -1,13 +1,14 @@
 <script>
+	import contactBg from '$lib/assets/contact/contact-bg.svg';
+
 	/**
 	 * "Contact Us" hero banner.
 	 * White panel on the left fading into a full-bleed photo on the right.
-	 * Point `bgImage` at your photo in assets (e.g. assets/contact/hero-bg.png).
 	 */
 	let {
 		heading = 'Contact Us',
 		description = "We're here to help and answer any question you might have. We look forward hearing from you.",
-		bgImage = '/src/lib/assets/contact/contact-bg.svg'
+		bgImage = contactBg
 	} = $props();
 </script>
 
